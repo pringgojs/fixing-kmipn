@@ -4,6 +4,7 @@
 <div class="page-header">
     <h2>Tahap Seleksi</h2>
 </div>
+@include('backend.pages.pendaftaran._filter')
 
 <div class="row">
     <div class="col-sm-12">

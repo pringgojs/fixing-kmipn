@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\User;
 use App\Tim;
+use App\User;
 use App\Lomba;
+use App\Kategori;
 use App\Politeknik;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PendaftaranController extends Controller
 {
@@ -16,27 +17,69 @@ class PendaftaranController extends Controller
        $this->middleware('auth:admin');
   }
 
-    public function daftar() {
-	    $data['data'] = Tim::whereHas('users', function ($query) {
+  public function daftar(Request $request, $type) {
+    if ($type == 'daftar') {
+      $type = 'Daftar';
+    } elseif ($type == 'tahap_seleksi') {
+      $type = 'Tahap Seleksi';
+    } elseif ($type == 'lolos') {
+      $type = 'Lolos';
+    } elseif ($type == 'tidak_lolos') {
+      $type = 'Tidak Lolos';
+    }  
+    $view = view('backend.pages.pendaftaran.daftar');
+    $politeknik = $request->input('politeknik');
+    $kategori = $request->input('kategori');
+    $view->data = Tim::whereHas('users', function ($query) {
         $query->where('role', '=', 'Ketua');
-      })->whereNull('file_proposal')->where('status','Daftar')->orderBy('id', 'DESC')->get();
-
-      $data['politeknik'] = Politeknik::orderBy('id', 'DESC')->get();
-
-      return view('backend.pages.pendaftaran.daftar', $data);
-    }
+      })
+      ->where(function ($q) use ($politeknik) {
+        if ($politeknik) {
+          $q->where('politeknik_id', $politeknik);
+        }
+      })
+      ->where(function ($q) use ($kategori) {
+        if ($kategori) {
+          $q->where('kategori_id', $kategori);
+        }
+      })
+      ->where('status', $type)
+      ->orderBy('id', 'DESC')
+      ->get();
+    $view->list_politeknik = Politeknik::all();
+    $view->list_kategori = Kategori::all();
+    $view->status = $type;
+    return $view;
+  }
     
-    public function tahap_seleksi() {
-        $data['data'] = Tim::whereHas('users', function ($query) {
+  public function tahap_seleksi(Request $request) {
+      $politeknik = $request->input('politeknik');
+      $kategori = $request->input('kategori');
+      
+      $view = view('backend.pages.pendaftaran.tahap_seleksi');
+      $view->data = Tim::whereHas('users', function ($query) {
           $query->where('role', '=', 'Ketua');
-        })->where('status','Tahap Seleksi')->orderBy('id', 'DESC')->get();
+        })
+        ->where(function ($q) use ($politeknik) {
+          if ($politeknik) {
+            $q->where('politeknik_id', $politeknik);
+          }
+        })
+        ->where(function ($q) use ($kategori) {
+          if ($kategori) {
+            $q->where('kategori_id', $kategori);
+          }
+        })
+        ->where('status','Tahap Seleksi')
+        ->orderBy('id', 'DESC')
+        ->get();
+      
+      $view->list_politeknik = Politeknik::all();
+      $view->list_kategori = Kategori::all();
+      return $view;
+  }
 
-      $data['politeknik'] = Politeknik::orderBy('id', 'DESC')->get();
- 
-       return view('backend.pages.pendaftaran.tahap_seleksi', $data);
-     }
-
-     public function lolos() {
+  public function lolos() {
         $data['data'] = Tim::whereHas('users', function ($query) {
           $query->where('role', '=', 'Ketua');
         })->where('status','Lolos')->orderBy('id', 'DESC')->get();
@@ -54,7 +97,7 @@ class PendaftaranController extends Controller
       $data['politeknik'] = Politeknik::orderBy('id', 'DESC')->get();
  
        return view('backend.pages.pendaftaran.tidak_lolos', $data);
-     }
+  }
 
     public function edit($id)
     {

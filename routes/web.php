@@ -54,10 +54,10 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
         'update','destroy'
       ]]);
 
-    Route::get('/pendaftaran/daftar/', ['as' => 'pendaftaran.daftar', 'uses' => 'Backend\PendaftaranController@daftar']);
-    Route::get('/pendaftaran/tahap_seleksi/', ['as' => 'pendaftaran.tahap_seleksi', 'uses' => 'Backend\PendaftaranController@tahap_seleksi']);
-    Route::get('/pendaftaran/lolos/', ['as' => 'pendaftaran.lolos', 'uses' => 'Backend\PendaftaranController@lolos']);
-    Route::get('/pendaftaran/tidak_lolos/', ['as' => 'pendaftaran.tidak_lolos', 'uses' => 'Backend\PendaftaranController@tidak_lolos']);
+    Route::get('/pendaftaran/{type}', 'Backend\PendaftaranController@daftar');
+    // Route::get('/pendaftaran/tahap_seleksi/', ['as' => 'pendaftaran.tahap_seleksi', 'uses' => 'Backend\PendaftaranController@tahap_seleksi']);
+    // Route::get('/pendaftaran/lolos/', ['as' => 'pendaftaran.lolos', 'uses' => 'Backend\PendaftaranController@lolos']);
+    // Route::get('/pendaftaran/tidak_lolos/', ['as' => 'pendaftaran.tidak_lolos', 'uses' => 'Backend\PendaftaranController@tidak_lolos']);
 });
 
 // Login Routes...
