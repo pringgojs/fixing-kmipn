@@ -54,6 +54,7 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
         'update','destroy'
       ]]);
 
+    Route::get('/verifikasi/{id}', 'Backend\PendaftaranController@verifikasi');
     Route::get('/pendaftaran/{type}', 'Backend\PendaftaranController@daftar');
     // Route::get('/pendaftaran/tahap_seleksi/', ['as' => 'pendaftaran.tahap_seleksi', 'uses' => 'Backend\PendaftaranController@tahap_seleksi']);
     // Route::get('/pendaftaran/lolos/', ['as' => 'pendaftaran.lolos', 'uses' => 'Backend\PendaftaranController@lolos']);

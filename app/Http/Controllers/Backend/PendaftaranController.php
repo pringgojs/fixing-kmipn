@@ -30,6 +30,7 @@ class PendaftaranController extends Controller
     $view = view('backend.pages.pendaftaran.daftar');
     $politeknik = $request->input('politeknik');
     $kategori = $request->input('kategori');
+    $status_approved = $request->input('status');
     $view->data = Tim::whereHas('users', function ($query) {
         $query->where('role', '=', 'Ketua');
       })
@@ -41,6 +42,11 @@ class PendaftaranController extends Controller
       ->where(function ($q) use ($kategori) {
         if ($kategori) {
           $q->where('kategori_id', $kategori);
+        }
+      })
+      ->where(function ($q) use ($status_approved) {
+        if ($status_approved != null) {
+          $q->where('status_approved', $status_approved);
         }
       })
       ->where('status', $type)
@@ -137,5 +143,15 @@ class PendaftaranController extends Controller
         'type' => 'success',
         'msg' => 'Deleted data.',
       ));
+    }
+
+    public function verifikasi($id)
+    {
+      $tim = Tim::findOrFail($id);
+      $tim->status_approved = 2;
+      $tim->status = 'Tahap Seleksi';
+      $tim->save();
+
+      return redirect(url('ecodeeepis/pendaftaran/daftar'));
     }
 }

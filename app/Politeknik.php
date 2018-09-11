@@ -22,11 +22,12 @@ class Politeknik extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function getJumlahPeserta($categori_id="", $status)
+    public function getJumlahPeserta($categori_id="", $status, $status_approved)
     {
         $total = Tim::whereHas('users', function ($query) {
             $query->where('role', '=', 'Ketua');
         })
+        ->where('status_approved', $status_approved)
         ->where('politeknik_id', $this->id)
         ->where('kategori_id', $categori_id)
         ->where('status', $status)

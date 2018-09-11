@@ -55,7 +55,7 @@
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> </button> &nbsp;
                                     </form>
-                                    @if($item->status_approved == 1) <a href="" class="btn btn-info btn-sm"><i class="fa fa-check"></i> </a> @endif
+                                    @if($item->status_approved == 1) <a onclick="verifikasi({{$item->id}})" class="btn btn-info btn-sm"><i class="fa fa-check"></i> </a> @endif
                                 </div>
                             </td>
                         </tr>
@@ -100,8 +100,17 @@ $(document).ready(function(){
     
 });
 
-    function pilih(value) {
-        location.href='{{url("/")}}/ecodeeepis/pendaftaran/daftar?politeknik='+value;
+    function pilih() {
+        var status =  $('#status :selected').val();
+        var politeknik =  $('#politeknik :selected').val();
+        location.href='{{url("/")}}/ecodeeepis/pendaftaran/daftar?politeknik='+politeknik+'&status='+status;
+    }
+
+    function verifikasi(id) {
+        var t = confirm('Anda yakin ingin memverifikasi data peserta ? Data yang sudah diverifikasi tidak dapat dibatalkan.');
+        if (t) {
+            location.href='{{url("/")}}/ecodeeepis/verifikasi/'+id;
+        }
     }
 </script>
 @endsection
