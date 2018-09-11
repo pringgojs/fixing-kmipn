@@ -1,0 +1,1 @@
+Halo {{$fullname}}, terimakasih telah mendaftar. Klik link berikut untuk aktivasi email kamu. <a href="{{$link}}">Link Aktivasi</a>

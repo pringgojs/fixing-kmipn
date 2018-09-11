@@ -1,0 +1,1 @@
+Halo {{$fullname}}, Kamu telah mengakses fitur lupa password. Silahkan klik link berikut untuk me-reset akun kamu. <a href="{{$link}}">Link Reset</a>
