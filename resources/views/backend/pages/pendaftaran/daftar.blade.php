@@ -10,7 +10,7 @@
     <div class="col-sm-12">
         <div class="card">
             <div class="card-block">
-                
+                <input type="hidden" id="link" value="{{$ctype}}" readonly>
                 <div class="clearfix"></div>
                 <br>
                 <table id="table" class="table table-bordered table-hover">
@@ -55,6 +55,7 @@
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> </button> &nbsp;
                                     </form>
+                                    <a href="{{url('ecodeeepis/pendaftaran/'.$item->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> </a>
                                     @if($item->status_approved == 1) <a onclick="verifikasi({{$item->id}})" class="btn btn-info btn-sm"><i class="fa fa-check"></i> </a> @endif
                                 </div>
                             </td>
@@ -103,7 +104,8 @@ $(document).ready(function(){
     function pilih() {
         var status =  $('#status :selected').val();
         var politeknik =  $('#politeknik :selected').val();
-        location.href='{{url("/")}}/ecodeeepis/pendaftaran/daftar?politeknik='+politeknik+'&status='+status;
+        var link = $('#link').val();
+        location.href='{{url("/")}}/ecodeeepis/pendaftaran/'+link+'?politeknik='+politeknik+'&status='+status;
     }
 
     function verifikasi(id) {

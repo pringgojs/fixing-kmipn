@@ -44,7 +44,7 @@
     @if(!$flpoliteknik->getJumlahPeserta($kategori->id, $status, $status_approved)) <?php continue; ?> @endif
     <?php $url =  '?politeknik='.$fl.'&kategori='.$kategori->id.'&status='.$status_approved;?>
     <div class="col-md-3">
-        <a href="{{url('ecodeeepis/pendaftaran/daftar'.$url)}}">
+        <a href="{{url('ecodeeepis/pendaftaran/'.$ctype.$url)}}">
         <div class="widget  @if($fl_kategory == $kategori->id) bg-warning @else bg-light @endif">
             <div class="row row-table ">
                 <div class="margin-b-30">

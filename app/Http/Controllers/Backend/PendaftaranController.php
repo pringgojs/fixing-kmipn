@@ -18,6 +18,7 @@ class PendaftaranController extends Controller
   }
 
   public function daftar(Request $request, $type) {
+    $ctype = $type;
     if ($type == 'daftar') {
       $type = 'Daftar';
     } elseif ($type == 'tahap_seleksi') {
@@ -55,6 +56,7 @@ class PendaftaranController extends Controller
     $view->list_politeknik = Politeknik::all();
     $view->list_kategori = Kategori::all();
     $view->status = $type;
+    $view->ctype = $ctype;
     return $view;
   }
     
