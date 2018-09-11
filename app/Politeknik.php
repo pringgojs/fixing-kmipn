@@ -35,5 +35,11 @@ class Politeknik extends Model
 
         return $total;
     }
+
+    public function getTotal()
+    {
+        $total = Tim::where('politeknik_id', $this->id)->get()->count();
+        return $total;
+    }
     
 }

@@ -33,4 +33,11 @@ class Lomba extends Model
     {
         return $this->belongsTo('App\Kategori', 'kategori_id');
     }
+
+    
+    public function getTotal()
+    {
+        $total = Tim::where('kategori_id', $this->id)->get()->count();
+        return $total;
+    }
 }

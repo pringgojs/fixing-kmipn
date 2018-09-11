@@ -17,6 +17,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Politeknik</th>
+                            <th>Total Peserta</th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -25,6 +26,7 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->politeknik }}</td>
+                            <td>{{ $item->getTotal() }}</td>
                             <td width="153">
                                 <form action="{{ url('/ecodeeepis/politeknik/'.$item->id) }}" method="post">
                                     {{ csrf_field() }}

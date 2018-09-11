@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Tim;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,5 +25,11 @@ class Kategori extends Model
     public function lomba()
     {
         return $this->hasMany('App\Lomba', 'kategori_id');
+    }
+
+    public function getTotal()
+    {
+        $tim = Tim::where('kategori_id', $this->id)->get()->count();
+        return $tim;
     }
 }
