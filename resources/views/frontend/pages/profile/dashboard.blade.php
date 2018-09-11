@@ -43,9 +43,13 @@
                     <div class="content">
                         <div class="row">
                             <div class="col-md-6">
-                                @if(session('status'))
+                                @if(session('status') == 1)
                                 <div class="alert alert-success" role="alert">
                                     <p style="color:#000"> <b>Anda behasil memverifikasi data</b>. <br>Verifikasi oleh admin biasanya dalam waktu 2x24 jam. </p>
+                                </div>
+                                @elsif(session('status') == 0)
+                                <div class="alert alert-danger" role="alert">
+                                    <p style="color:#000"> <b>Anda gagal memverifikasi data</b>. <br>Pastikan Anda sudah mengunggah file proposal. </p>
                                 </div>
                                 @endif
                                 <h3><strong>Selamat Datang</strong></h3><br/>

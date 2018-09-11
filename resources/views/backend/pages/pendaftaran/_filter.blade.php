@@ -6,12 +6,22 @@
                 <div class="row">
                     <?php $fl = \Input::get('politeknik')?>
                     <?php $fl_status_approved = \Input::get('status') ? : 0?>
-                    <div class="col-sm-6">
+                    <?php $fl_status_pendaftaran = Request::segment(3)?>
+                    <div class="col-sm-3">
                         <?php $flpoliteknik = \App\Politeknik::find($fl); ?>
                         @if($flpoliteknik)
                         Politeknik : <strong>{{$flpoliteknik->politeknik}} </strong><br>
                         Jumlah Pendaftar : <strong>{{$data->count()}}</strong>
                         @endif
+                    </div>
+                    <div class="col-sm-3">
+                        <label for="status">Status Pendaftaran</label>
+                        <select name="" class="form-control" id="status-pendaftaran" onchange="pilih()">
+                            <option value="daftar" @if($fl_status_pendaftaran == 'daftar') selected @endif>Daftar</option>
+                            <option value="tahap_seleksi" @if($fl_status_pendaftaran == 'tahap_seleksi') selected @endif>Tahap Seleksi</option>
+                            <option value="lolos" @if($fl_status_pendaftaran == 'lolos') selected @endif>Lolos</option>
+                            <option value="tidak_lolos" @if($fl_status_pendaftaran == 'tidak_lolos') selected @endif>Tidak Lolos</option>
+                        </select>
                     </div>
                     <div class="col-sm-3">
                         <label for="status">Status Verifikasi</label>

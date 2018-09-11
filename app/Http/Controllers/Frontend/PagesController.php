@@ -300,7 +300,11 @@ class PagesController extends Controller
     }
 
     public function verifikasi(Request $request) {
-      $tim = Tim::where('users_id', auth()->user()->id)->first();
+      $tim = Tim::where('users_id', auth()->user()->id)->whereNotNull('file_proposal')->first();
+      if (!$tim) {
+        $request->session()->flash('status', '0');
+        return redirect('profile/dashboard');
+      }
       $tim->status_approved = 1;
       $tim->save();
       
