@@ -86,7 +86,7 @@ class PagesController extends Controller
     }
 
     public function viewProfile(){
-      $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
+      $data['tim'] = Tim::find(auth()->user()->tim_id);
       $data['anggota'] = User::where('tim_id',$data['tim']->id)->get();
       $data['nullProposal'] = Tim::where('users_id',\Auth::user()->id)->whereNull('file_proposal')->first();
       return view('frontend.pages.profile.dashboard',$data);
@@ -94,6 +94,9 @@ class PagesController extends Controller
 
     public function viewInfoTim(){
       $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
+      if ($data['tim']->total_anggota == 0) {
+        return redirect(url('profile/anggota'));
+      }
       $data['politeknik'] = Politeknik::get();
 
 //        $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
@@ -104,6 +107,9 @@ class PagesController extends Controller
 
     public function viewAddAnggota(){
         $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
+        if ($data['tim']->total_anggota == 0) {
+          return redirect(url('profile/anggota'));
+        }
         $data['anggota'] = User::where('tim_id',$data['tim']->id)->get();
         $data['nullProposal'] = Tim::where('users_id',\Auth::user()->id)->whereNull('file_proposal')->first();
 
@@ -136,6 +142,9 @@ class PagesController extends Controller
 
     public function edit_anggota($id){
         $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
+        if ($data['tim']->total_anggota == 0) {
+          return redirect(url('profile/anggota'));
+        }
         $data['anggota'] = User::where('tim_id',$data['tim']->id)->get();
         $data['nullProposal'] = Tim::where('users_id',\Auth::user()->id)->whereNull('file_proposal')->first();
       $data['data'] = User::where('id',$id)->first();
@@ -218,7 +227,7 @@ class PagesController extends Controller
             }
             $result = User::create($req);
 
-            return redirect(url('/profile/dashboard/#anggota'))->withInput()->with('message', array(
+            return redirect(url('profile/anggota'))->withInput()->with('message', array(
               'title' => 'Yay!',
               'type' => 'success',
               'msg' => 'Saved Success.',
@@ -234,7 +243,7 @@ class PagesController extends Controller
         'total_anggota' => $tim1->total_anggota + 1
       ));
       if($result->role == 'Ketua'){
-        return redirect(url('profile/dashboard/#anggota'))->withInput()->with('message', array(
+        return redirect(url('profile/anggota'))->withInput()->with('message', array(
           'title' => 'Oops!',
           'type' => 'danger',
           'msg' => 'Tidak bisa menghapus ketua',
@@ -242,7 +251,7 @@ class PagesController extends Controller
       }else{
         $result->delete();
 
-        return redirect(url('profile/dashboard/#anggota'))->withInput()->with('message', array(
+        return redirect(url('profile/anggota'))->withInput()->with('message', array(
           'title' => 'Yay!',
           'type' => 'success',
           'msg' => 'Deleted data.',
@@ -274,7 +283,7 @@ class PagesController extends Controller
           unset($req['file_proposal']);
         }
 
-        $req['status'] = 'Tahap Seleksi';
+        $req['status'] = 'Daftar';
 
         $result = Tim::where('id', $id)->update($req);
 
@@ -288,5 +297,14 @@ class PagesController extends Controller
     public function viewArtikel($slug){
       $data['artikel'] = Artikel::where('slug', $slug)->first();
       return view('frontend.pages.artikel', $data);
+    }
+
+    public function verifikasi(Request $request) {
+      $tim = Tim::where('users_id', auth()->user()->id)->first();
+      $tim->status_approved = 1;
+      $tim->save();
+      
+      $request->session()->flash('status', '1');
+      return redirect('profile/dashboard');
     }
 }

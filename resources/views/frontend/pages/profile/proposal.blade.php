@@ -53,7 +53,9 @@
                             </p>
                         </div>
                         <div class="content" style="float: none; margin: 0 auto;">
+                            @if($tim->status_approved == 0)
                             <a class="btn btn-info" href="{{ url('profile/info-tim') }}">INFO TEAM</a>
+                            @endif
                         </div>
                     </div>
                 </div>

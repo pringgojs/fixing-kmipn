@@ -75,6 +75,7 @@
                                                 @endif
                                             </td>
                                             <td>{{ $item->role }}</td>
+                                            @if($tim->status_approved == 0)
                                             <td>
                                                 <input type="hidden" name="_method" value="DELETE" />
                                                 <a href="{{ url('/profile/edit_anggota/'.$item->id) }}" class="btn btn-info">
@@ -84,6 +85,7 @@
                                                     <a href="{{ url('/profile/submit_delete_anggota/'.$item->id) }}" class="btn btn-danger" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
                                                 @endif
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

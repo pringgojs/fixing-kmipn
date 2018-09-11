@@ -76,6 +76,7 @@ Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => ['user_actived']], function() {
     Route::group(['middleware' => ['auth']], function() {
+        Route::get('/profile/verifikasi', 'Frontend\PagesController@verifikasi');
         Route::get('/profile/dashboard', ['as' => 'view.profile', 'uses' => 'Frontend\PagesController@viewProfile']);
         Route::get('/profile/tambah-anggota', ['as' => 'view.addanggota', 'uses' => 'Frontend\PagesController@viewAddAnggota']);
         Route::get('/profile/anggota', ['as' => 'view.anggota', 'uses' => 'Frontend\PagesController@viewAnggota']);

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,4 +31,15 @@ class Tim extends Model
     {
         return $this->belongsTo('App\Kategori', 'kategori_id');
     }
+
+    public function politeknik()
+    {
+        return $this->belongsTo('App\Politeknik', 'politeknik_id');
+    }
+
+    public static function jumlahAnggota($tim)
+    {
+        return $user = User::where('tim_id', $tim->id)->whereNull('deleted_at')->get()->count();
+    }
+    
 }
