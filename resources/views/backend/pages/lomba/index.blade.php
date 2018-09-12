@@ -18,6 +18,9 @@
                             <th>ID</th>
                             <th>Kategori</th>
                             <th>Total Peserta</th>
+                            <th>Total Peserta Belum Unggah Proposal</th>
+                            <th>Total Peserta Menunggu verifikasi </th>
+                            <th>Total Peserta Terverifikasi </th>
                             <th>&nbsp;</th>
                         </tr>
                     </thead>
@@ -26,7 +29,10 @@
                         <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->kategori->kategori }}</td>
-                            <td>{{ $item->getTotal() }}</td>
+                            <td class="text-center">{{ $item->getTotal() }}</td>
+                            <td class="text-center">{{ $item->getTotalBelumUnggah() }}</td>
+                            <td class="text-center">{{ $item->getTotalPendingVerifikasi() }}</td>
+                            <td class="text-center">{{ $item->getTotalTerverifikasi() }}</td>
                             <td width="153">
                                 <form action="{{ url('/ecodeeepis/lomba/'.$item->id) }}" method="post">
                                     {{ csrf_field() }}
@@ -42,6 +48,9 @@
                         <tr>
                             <th>ID</th>
                             <th>Kategori</th>
+                            <th>Total Peserta Belum Unggah Proposal</th>
+                            <th>Total Peserta Menunggu verifikasi </th>
+                            <th>Total Peserta Terverifikasi </th>
                             <th>&nbsp;</th>
                         </tr>
                     </tfoot>
@@ -65,7 +74,7 @@ $(document).ready(function(){
         "autoWidth": false,
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
+            'excel', 'pdf', 'print'
         ]
     });
 });

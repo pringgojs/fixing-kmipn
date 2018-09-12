@@ -37,7 +37,25 @@ class Lomba extends Model
     
     public function getTotal()
     {
-        $total = Tim::where('kategori_id', $this->id)->get()->count();
+        $total = Tim::where('kategori_id', $this->id)->whereNull('deleted_at')->get()->count();
         return $total;
+    }
+
+    public function getTotalBelumUnggah()
+    {
+        $tim = Tim::where('kategori_id', $this->id)->whereNull('deleted_at')->where('status_approved', 0)->get()->count();
+        return $tim;
+    }
+
+    public function getTotalPendingVerifikasi()
+    {
+        $tim = Tim::where('kategori_id', $this->id)->whereNull('deleted_at')->where('status_approved', 1)->get()->count();
+        return $tim;
+    }
+
+    public function getTotalTerverifikasi()
+    {
+        $tim = Tim::where('kategori_id', $this->id)->whereNull('deleted_at')->where('status_approved', 2)->get()->count();
+        return $tim;
     }
 }
