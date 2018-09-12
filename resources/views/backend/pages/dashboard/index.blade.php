@@ -1,6 +1,22 @@
 @extends('backend.master')
 
 @section('content')
+    @if($total_menunggu_verifikasi)
+    <div class="row w-no-padding margin-b-30">
+        <div class="col-md-12">
+            <div class="widget bg-success">
+                <div class="row row-table ">
+                    <div class="margin-b-30">
+                        <h2 class="margin-b-5"><b>Pengumuman</b> </h2><br> 
+                        <p>Ada peserta yang menunggu untuk di verifikasi. <br>
+                            <a href="{{url('ecodeeepis/pendaftaran/daftar?politeknik=0&status=1')}}" class="btn btn-sm btn-danger"> klik untuk melihat detail</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="page-header">
         <h2>Jumlah Tim Terdaftar</h2>
     </div>

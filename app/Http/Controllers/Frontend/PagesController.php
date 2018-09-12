@@ -154,7 +154,16 @@ class PagesController extends Controller
     public function submit_edit_anggota($id, Request $request)
     {
       	$req = $request->except('_method', '_token', 'submit');
-        
+        if ($request->input('tgl_lahir') == '') {
+          $request->session()->flash('status', '1');
+
+          return redirect(url('profile/edit_anggota/'.$id))->withInput()->with('message', array(
+            'title' => 'Oops!',
+            'type' => 'danger',
+            'msg' => 'Failed.',
+          ));
+        }
+
         if (!empty($req['password'])) {
           $req['password'] = \Hash::make($req['password']);
         }else {
@@ -187,7 +196,7 @@ class PagesController extends Controller
 
         $result = User::where('id', $id)->update($req);
 
-        return redirect(url('profile/dashboard'))->withInput()->with('message', array(
+        return redirect(url('profile/anggota'))->withInput()->with('message', array(
           'title' => 'Yay!',
           'type' => 'success',
           'msg' => 'Saved Success.',
@@ -198,9 +207,18 @@ class PagesController extends Controller
     {
           $req = $request->all();
           $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
+          if ($request->input('tgl_lahir') == '') {
+            $request->session()->flash('status', '1');
+
+            return redirect(url('profile/tambah-anggota'))->withInput()->with('message', array(
+              'title' => 'Oops!',
+              'type' => 'danger',
+              'msg' => 'Failed.',
+            ));
+          }
 
           if($data['tim']->total_anggota == '0'){
-            return redirect(url('profile/dashboard'))->withInput()->with('message', array(
+            return redirect(url('profile/anggota'))->withInput()->with('message', array(
               'title' => 'Oops!',
               'type' => 'danger',
               'msg' => 'Failed.',
@@ -225,8 +243,9 @@ class PagesController extends Controller
                   unset($req['image']);
               }
             }
+            \DB::beginTransaction();
             $result = User::create($req);
-
+            \DB::commit();
             return redirect(url('profile/anggota'))->withInput()->with('message', array(
               'title' => 'Yay!',
               'type' => 'success',
@@ -301,10 +320,17 @@ class PagesController extends Controller
 
     public function verifikasi(Request $request) {
       $tim = Tim::where('users_id', auth()->user()->id)->whereNotNull('file_proposal')->first();
-      if (!$tim) {
-        $request->session()->flash('status', '0');
+      $tim_anggota = Tim::where('users_id', auth()->user()->id)->first();
+      if ($tim_anggota->total_anggota != 0) {
+        $request->session()->flash('status', '3');
         return redirect('profile/dashboard');
       }
+      
+      if (!$tim) {
+        $request->session()->flash('status', '2');
+        return redirect('profile/dashboard');
+      }
+      
       $tim->status_approved = 1;
       $tim->save();
       

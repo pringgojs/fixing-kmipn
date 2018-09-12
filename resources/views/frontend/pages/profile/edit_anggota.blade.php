@@ -42,6 +42,11 @@
       <div class="row">
         <div class="col-md-8">
           <div class="card">
+            @if(session('status'))
+                <div class="alert alert-danger" role="alert">
+                    <p style="color:#000"> <b>Data gagal disimpan</b>. <br>Pastikan Anda sudah melengkapi semua form. </p>
+                </div>
+            @endif
             <div class="header">
               <h4 class="title">Tambah Anggota Baru</h4>
             </div>
