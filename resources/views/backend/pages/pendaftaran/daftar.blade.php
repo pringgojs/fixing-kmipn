@@ -30,7 +30,7 @@
                         @foreach($data as $item)
                         <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->nama_tim }}</td>
+                            <td id="tim-{{$item->id}}">{{ $item->nama_tim }}</td>
                             <td>{{ $item->users->fullname }}</td>
                             <td>{{ $item->politeknik->politeknik }}</td>
                             <td>@if($item->file_proposal) <a href="{{ url('proposal/'.$item->file_proposal) }}">{{ $item->file_proposal }}</a>@endif</td>
@@ -55,8 +55,9 @@
                                         <input type="hidden" name="_method" value="DELETE">
                                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i> </button> &nbsp;
                                     </form>
-                                    <a href="{{url('ecodeeepis/pendaftaran/'.$item->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> </a>
-                                    @if($item->status_approved == 1) <a onclick="verifikasi({{$item->id}})" class="btn btn-info btn-sm"><i class="fa fa-check"></i> </a> @endif
+                                    <a href="{{url('ecodeeepis/pendaftaran/'.$item->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fa fa-eye"></i> </a> &nbsp;&nbsp;
+                                    @if($item->status_approved == 1) <a onclick="verifikasi({{$item->id}})" class="btn btn-info btn-sm"><i class="fa fa-check"></i> </a> &nbsp;&nbsp; @endif
+                                    @if($item->status_approved == 2) <a onclick="openModal({{$item->id}})"  data-toggle="modal" data-target="#openModal" class="btn btn-primary btn-sm mt-10"> <i class="fa fa-send"></i> Terbitkan Kelulusan </a> @endif
                                 </div>
                             </td>
                         </tr>
@@ -77,6 +78,37 @@
                 </table>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="openModal">
+    <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" class="fa fa-times"></span></button>
+        <h5 class="modal-title" id="exampleModalLabel">Seleksi Peserta</h5>
+        </div>
+        <div class="modal-body">
+            <form role="form">
+                <input type="hidden" name="tim_id" id="tim-id">
+                <div class="form-group">
+                    <label for="status">Nama Tim</label> <br>
+                    <strong id="nama-tim"></strong>
+                </div>
+                <div class="form-group">
+                    <label for="status">Pilih status kelolosan</label>
+                    <select name="status" id="status-lulus" class="form-control">
+                        <option value="1">Lolos</option>
+                        <option value="0">Tidak Lolos</option>
+                    </select>
+                </div>
+                <div class="clearfix">
+                    <button type="button" class="btn  btn-primary float-right" onclick="terbitkanKelulusan()">Simpan</button>
+                </div>
+            </form>
+            <hr>
+        </div>
+    </div>
     </div>
 </div>
 @endsection
@@ -113,6 +145,22 @@ $(document).ready(function(){
         var t = confirm('Anda yakin ingin memverifikasi data peserta ? Data yang sudah diverifikasi tidak dapat dibatalkan.');
         if (t) {
             location.href='{{url("/")}}/ecodeeepis/verifikasi/'+id;
+        }
+    }
+
+    function openModal(id) {
+        var tim = $('#tim-'+id).html();
+        $('#nama-tim').html(tim);
+        $('#tim-id').val(id);
+    }
+
+    function terbitkanKelulusan() {
+        var t = confirm('Anda yakin ingin terhadap status kelulusan peserta ? Data yang sudah disimpan tidak dapat dibatalkan.');
+        var id = $('#tim-id').val();
+        var status =  $('#status-lulus :selected').val();
+        
+        if (t) {
+            location.href='{{url("/")}}/ecodeeepis/set-lulus/'+id+'&status='+status;
         }
     }
 </script>

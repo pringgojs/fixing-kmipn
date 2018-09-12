@@ -51,6 +51,12 @@
                                 <i class="label label-success">Anda sudah mengunggah proposal</i>
                             @endif
                             </p>
+                            <br>
+                            @if($tim->file_proposal)
+                            <p class="category">File Proposal : 
+                                <a href="{{ url('proposal/'.$tim->file_proposal) }}">{{ $tim->file_proposal }}</a>
+                            </p>
+                            @endif
                         </div>
                         <div class="content" style="float: none; margin: 0 auto;">
                             @if($tim->status_approved == 0)

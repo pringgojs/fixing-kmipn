@@ -94,7 +94,7 @@ class PagesController extends Controller
 
     public function viewInfoTim(){
       $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
-      if ($data['tim']->total_anggota == 0) {
+      if ($data['tim']->status_approved == 1 || $data['tim']->status_approved == 2) {
         return redirect(url('profile/anggota'));
       }
       $data['politeknik'] = Politeknik::get();
@@ -107,7 +107,7 @@ class PagesController extends Controller
 
     public function viewAddAnggota(){
         $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
-        if ($data['tim']->total_anggota == 0) {
+        if ($data['tim']->total_anggota == 0 || $data['tim']->status_approved == 1 || $data['tim']->status_approved == 2) {
           return redirect(url('profile/anggota'));
         }
         $data['anggota'] = User::where('tim_id',$data['tim']->id)->get();
@@ -142,7 +142,7 @@ class PagesController extends Controller
 
     public function edit_anggota($id){
         $data['tim'] = Tim::where('users_id',\Auth::user()->id)->first();
-        if ($data['tim']->total_anggota == 0) {
+        if ($data['tim']->status_approved == 1 || $data['tim']->status_approved == 2) {
           return redirect(url('profile/anggota'));
         }
         $data['anggota'] = User::where('tim_id',$data['tim']->id)->get();
@@ -151,25 +151,24 @@ class PagesController extends Controller
       return view('frontend.pages.profile.edit_anggota',$data);
     }
 
-    public function submit_edit_anggota($id, Request $request)
+    public function submit_edit_anggota(Request $request, $id)
     {
       	$req = $request->except('_method', '_token', 'submit');
         if ($request->input('tgl_lahir') == '') {
           $request->session()->flash('status', '1');
-
           return redirect(url('profile/edit_anggota/'.$id))->withInput()->with('message', array(
             'title' => 'Oops!',
             'type' => 'danger',
             'msg' => 'Failed.',
           ));
         }
-
+        
         if (!empty($req['password'])) {
           $req['password'] = \Hash::make($req['password']);
         }else {
           unset($req['password']);
         }
-
+        
         if ($request->hasFile('image')) {
           if ($request->file('image')->isValid()) {
             $destinationPath = 'ktm/'; // upload path
@@ -184,6 +183,7 @@ class PagesController extends Controller
             unset($req['image']);
   
             $result = User::find($id);
+
             if (!empty($result->photo)) {
               File::delete('ktm/'.$result->photo);
             }
@@ -193,7 +193,6 @@ class PagesController extends Controller
         }else {
           unset($req['photo']);
         }
-
         $result = User::where('id', $id)->update($req);
 
         return redirect(url('profile/anggota'))->withInput()->with('message', array(
@@ -256,8 +255,12 @@ class PagesController extends Controller
 
     public function submit_delete_anggota($id)
     {
+      
       $result = User::find($id);
       $tim1 = Tim::where('users_id',\Auth::user()->id)->first();
+      if ($tim1->status_approved == 1 || $tim1->status_approved == 2) {
+        return redirect(url('profile/anggota'));
+      }
       $tim2 = Tim::where('users_id',\Auth::user()->id)->update(array(
         'total_anggota' => $tim1->total_anggota + 1
       ));

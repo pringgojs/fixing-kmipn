@@ -147,13 +147,33 @@ class PendaftaranController extends Controller
       ));
     }
 
-    public function verifikasi($id)
+    public function verifikasi(Request $request, $id)
     {
       $tim = Tim::findOrFail($id);
       $tim->status_approved = 2;
       $tim->status = 'Tahap Seleksi';
       $tim->save();
 
+      $from = $request->input('from');
+      if ($from == 'detail') {
+        return redirect(url('ecodeeepis/pendaftaran/'.$id.'/edit'));
+      }
       return redirect(url('ecodeeepis/pendaftaran/daftar'));
+
+    }
+
+    public function setLolos(Request $request, $id)
+    {
+      $status = $request->input('status') ? 'Lolos' : 'Tidak Lolos';
+      $tim = Tim::findOrFail($id);
+      $tim->status = $status;
+      $tim->save();
+
+      $from = $request->input('from');
+      if ($from == 'detail') {
+        return redirect(url('ecodeeepis/pendaftaran/'.$id.'/edit'));
+      }
+      return redirect(url('ecodeeepis/pendaftaran/tahap_seleksi?politeknik=0&status=2'));
+
     }
 }

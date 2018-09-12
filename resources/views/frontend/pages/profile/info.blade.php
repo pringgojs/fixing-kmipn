@@ -67,7 +67,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>File Proposal (Maximum File Upload 3 Mb)</label>
+            <label>File Proposal (Maximum File Upload 3 Mb) (Type: Docx, PDF)</label>
             <input type="file" name="file_proposal" id="file_proposal" class="form-control">
             <a href="{{ url('proposal/'.$tim->file_proposal) }}">{{ $tim->file_proposal }}</a>
           </div>
