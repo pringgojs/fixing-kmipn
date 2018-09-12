@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\User;
+use App\Kategori;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -14,14 +15,8 @@ class DashboardController extends Controller
     }
 
 	public function index() {
-		// $data['ck'] = User::where('kategori','Cipta Inovasi')->count();
-		// $data['tik'] = User::where('kategori','Bisnis TIK')->count();
-		// $data['game'] = User::where('kategori','Game Development')->count();
-		// $data['gov'] = User::where('kategori','E-Goverment')->count();
-		// $data['iot'] = User::where('kategori','IoT')->count();
-		// $data['animasi'] = User::where('kategori','Desain Animasi')->count();
-		// $data['jaringan'] = User::where('kategori','Keamanan Jaringan')->count();
-		// $data['hack'] = User::where('kategori','Hackathon')->count();
-		return view('backend.pages.dashboard.index');
+		$view = view('backend.pages.dashboard.index');
+		$view->list_kategori = Kategori::all();
+		return $view;
 	}
 }

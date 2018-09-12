@@ -29,7 +29,7 @@ class Kategori extends Model
 
     public function getTotal()
     {
-        $tim = Tim::where('kategori_id', $this->id)->get()->count();
+        $tim = Tim::where('kategori_id', $this->id)->whereNull('deleted_at')->get()->count();
         return $tim;
     }
 }

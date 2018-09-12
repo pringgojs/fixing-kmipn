@@ -28,7 +28,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/ecodeeepis/pendaftaran/daftar') }}">
-                        <i class="fa fa-user"></i> <span class="toggle-none">Peserta</span>
+                        <i class="fa fa-user"></i> <span class="toggle-none">Tim</span>
                     </a>
                 </li>
                 <li class="nav-item">

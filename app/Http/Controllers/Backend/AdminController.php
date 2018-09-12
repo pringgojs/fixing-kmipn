@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Tim;
 use App\Admin;
+use App\Kategori;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 class AdminController extends Controller
 {
     /**
@@ -24,31 +27,18 @@ class AdminController extends Controller
      */
     public function admin()
     {
-      // $data['ck'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori', '=', 'Cipta Inovasi');
-      // })->count();
-      // $data['tik'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','Bisnis TIK');
-      // })->count();
-      // $data['game'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','Game Development');
-      // })->count();
-      // $data['gov'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','E-Goverment');
-      // })->count();
-      // $data['iot'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','IoT');
-      // })->count();
-      // $data['animasi'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','Desain Animasi');
-      // })->count();
-      // $data['jaringan'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','Keamanan Jaringan');
-      // })->count();
-      // $data['hack'] = Tim::whereHas('lomba', function ($query) {
-      //   $query->where('kategori','Hackathon');
-      // })->count();
-      return view('backend.pages.dashboard.index');
+      $tgl_kemarin = Carbon::yesterday();
+      $view = view('backend.pages.dashboard.index');
+      $view->list_kategori = Kategori::all();
+      $view->total_tim = Tim::whereNull('deleted_at')->get()->count();
+      $view->total_belum_upload_proposal = Tim::whereNull('deleted_at')->where('status_approved', 0)->get()->count();
+      $view->total_menunggu_verifikasi = Tim::whereNull('deleted_at')->whereNotNull('file_proposal')->where('status_approved', 1)->get()->count();
+      $view->total_ter_verifikasi = Tim::whereNull('deleted_at')->whereNotNull('file_proposal')->where('status_approved', 2)->get()->count();
+      // by date
+      $view->total_hari_ini = Tim::whereNull('deleted_at')->whereDate('created_at', date('Y-m-d'))->get()->count();
+      $view->total_kemarin = Tim::whereNull('deleted_at')->whereDate('created_at', $tgl_kemarin->format('Y-m-d'))->get()->count();
+      $view->total_bulan_ini = Tim::whereNull('deleted_at')->whereMonth('created_at', date('m'))->get()->count();
+      return $view;
     }
 
     public function index() {
