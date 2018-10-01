@@ -322,20 +322,22 @@ class PagesController extends Controller
     }
 
     public function verifikasi(Request $request) {
-      $tim = Tim::where('users_id', auth()->user()->id)->whereNotNull('file_proposal')->first();
       $tim_anggota = Tim::where('users_id', auth()->user()->id)->first();
-      if ($tim_anggota->total_anggota != 0) {
+      $total_anggota = User::where('tim_id', $tim_anggota->id)->select('fullname')->get()->count();
+      if ($total_anggota == 0) {
         $request->session()->flash('status', '3');
         return redirect('profile/dashboard');
       }
       
-      if (!$tim) {
-        $request->session()->flash('status', '2');
-        return redirect('profile/dashboard');
+      if ($tim_anggota->kategory_id != 7) {
+        if (!$tim_anggota->file_proposal) {
+          $request->session()->flash('status', '2');
+          return redirect('profile/dashboard');
+        }
       }
-      
-      $tim->status_approved = 1;
-      $tim->save();
+
+      $tim_anggota->status_approved = 1;
+      $tim_anggota->save();
       
       $request->session()->flash('status', '1');
       return redirect('profile/dashboard');
