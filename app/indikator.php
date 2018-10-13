@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class indikator extends Model
+class Indikator extends Model
 {
-    //
+    protected $table = 'indikators';   
+    public $timestamps = false;
 }

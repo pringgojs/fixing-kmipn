@@ -30,10 +30,7 @@ Route::get('/game', ['as' => 'game', 'uses' => 'Frontend\PagesController@game'])
 Route::get('/egov', ['as' => 'egov', 'uses' => 'Frontend\PagesController@egov']);
 Route::get('/jaringan', ['as' => 'jaringan', 'uses' => 'Frontend\PagesController@jaringan']);
 Route::get('/cipta', ['as' => 'cipta', 'uses' => 'Frontend\PagesController@cipta']);
-//Auth::routes();
 
-// Route::get('/ecodeeepis', 'Auth\AdminLoginController@showLoginForm')->name('ecodeeepis.login');
-// Route::post('ecodeeepis/login', 'Auth\AdminLoginController@login')->name('ecodeeepis.login.submit');
 Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('ecodeeepis.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('ecodeeepis.login.submit');
@@ -48,6 +45,11 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::resource('galeri', 'Backend\GaleriController');
     Route::resource('kategori', 'Backend\KategoriController');
     Route::resource('politeknik', 'Backend\PoliteknikController');
+    
+    Route::post('juri/set-juri', 'Backend\JuriController@setJuri');
+    Route::get('juri/random/{juri}/{random}', 'Backend\JuriController@random');
+    Route::get('juri/cek-jumlah/{juri}', 'Backend\JuriController@cekJumlah');
+    Route::resource('juri', 'Backend\JuriController');
 
     Route::get('/pendaftaran/{id}/edit', ['as' => 'pendaftaran.edit', 'uses' => 'Backend\PendaftaranController@edit']);
     Route::resource('pendaftaran', 'Backend\PendaftaranController', [ 'only' => [
@@ -57,9 +59,6 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::get('/set-lulus/{id}', 'Backend\PendaftaranController@setLolos');
     Route::get('/verifikasi/{id}', 'Backend\PendaftaranController@verifikasi');
     Route::get('/pendaftaran/{type}', 'Backend\PendaftaranController@daftar');
-    // Route::get('/pendaftaran/tahap_seleksi/', ['as' => 'pendaftaran.tahap_seleksi', 'uses' => 'Backend\PendaftaranController@tahap_seleksi']);
-    // Route::get('/pendaftaran/lolos/', ['as' => 'pendaftaran.lolos', 'uses' => 'Backend\PendaftaranController@lolos']);
-    // Route::get('/pendaftaran/tidak_lolos/', ['as' => 'pendaftaran.tidak_lolos', 'uses' => 'Backend\PendaftaranController@tidak_lolos']);
 });
 
 // Login Routes...
