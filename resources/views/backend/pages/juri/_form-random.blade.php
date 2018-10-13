@@ -37,6 +37,6 @@
         </tbody>
     </table>
     <div class="clearfix">
-        <button type="button" class="btn btn-sm btn-success float-left" onclick="store()">Simpan posisi</button>
+        <button type="button" id="btn-simpan-posisi"  class="btn btn-sm btn-success float-left" onclick="store()">Simpan posisi</button>
     </div>
 </form>

@@ -94,12 +94,13 @@ class JuriController extends Controller
     public function cekJumlah($juri)
     {
         $tim_masuk = Penilaian::select('tim_id')->get()->toArray();
+        $tim_masuk_juri = Penilaian::select('tim_id')->where('juri_id', $juri)->get();
 
         $view = view('backend.pages.juri.random');
-        $view->list_tim = Tim::whereIn('id', $tim_masuk)->get();
+        $view->list_tim = Tim::whereIn('id', $tim_masuk_juri)->get();
         $view->jumlah = Tim::where('status', 'Tahap Seleksi')->whereNotIn('id', $tim_masuk)->get()->count();
         $view->juri = $juri;
-        $view->random = 2;
+        $view->random = $view->list_tim ? 2 : 0;
         $view->item = 0;
         return $view;
     }

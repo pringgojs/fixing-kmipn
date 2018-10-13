@@ -1,6 +1,11 @@
 @extends('backend.master')
 
 @section('content')
+<style>
+.hidden {
+    display: none;
+}
+</style>
 <div class="page-header">
     <h2>juri</h2>
 </div>
@@ -94,6 +99,8 @@ function cekJumlah(id) {
         async: true,
         success: function (res) {
             $('#table-data').html(res);
+            $('#btn-simpan-posisi').addClass('hidden');
+
         },
         error: function (res) {
             alert('terjadi kegagalan sistem');
@@ -125,6 +132,7 @@ function random() {
                 return false;
             }
             $('#body-table').html(res);
+            $('#btn-simpan-posisi').removeClass('hidden');
         },
         error: function (res) {
             alert('terjadi kegagalan sistem');
