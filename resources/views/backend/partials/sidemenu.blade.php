@@ -37,6 +37,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/ecodeeepis/indikator') }}">
+                        <i class="fa fa-file"></i> <span class="toggle-none">Indikator Penilaian</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url('/ecodeeepis/lomba') }}">
                         <i class="fa fa-tag"></i> <span class="toggle-none">Kategori Lomba</span>
                     </a>

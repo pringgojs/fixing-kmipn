@@ -45,6 +45,7 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::resource('galeri', 'Backend\GaleriController');
     Route::resource('kategori', 'Backend\KategoriController');
     Route::resource('politeknik', 'Backend\PoliteknikController');
+    Route::resource('indikator', 'Backend\IndikatorController');
     
     Route::post('juri/set-juri', 'Backend\JuriController@setJuri');
     Route::get('juri/random/{juri}/{random}', 'Backend\JuriController@random');
