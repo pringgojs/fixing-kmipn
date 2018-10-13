@@ -32,6 +32,11 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/ecodeeepis/juri') }}">
+                        <i class="fa fa-gavel"></i> <span class="toggle-none">Juri</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url('/ecodeeepis/lomba') }}">
                         <i class="fa fa-tag"></i> <span class="toggle-none">Kategori Lomba</span>
                     </a>
