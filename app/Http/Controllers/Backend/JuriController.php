@@ -98,7 +98,7 @@ class JuriController extends Controller
 
         $view = view('backend.pages.juri.random');
         $view->list_tim = Tim::whereIn('id', $tim_masuk_juri)->get();
-        $view->jumlah = Tim::where('status', 'Tahap Seleksi')->whereNotIn('id', $tim_masuk)->get()->count();
+        $view->jumlah = Tim::where('status', 'Tahap Seleksi')->where('kategori_id', '!=', 7)->whereNotIn('id', $tim_masuk)->get()->count();
         $view->juri = $juri;
         $view->random = $view->list_tim ? 2 : 0;
         $view->item = 0;
@@ -108,7 +108,7 @@ class JuriController extends Controller
     public function random($juri, $random)
     {
         $tim_masuk = Penilaian::select('tim_id')->get()->toArray();
-        $list_tim_tahap_seleksi = Tim::where('status', 'Tahap Seleksi')->whereNotIn('id', $tim_masuk)->get();
+        $list_tim_tahap_seleksi = Tim::where('status', 'Tahap Seleksi')->where('kategori_id', '!=', 7)->whereNotIn('id', $tim_masuk)->get();
         if ($random > $list_tim_tahap_seleksi->count()) {
             return 0;
         }
