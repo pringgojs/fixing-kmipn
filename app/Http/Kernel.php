@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role'  => \App\Http\Middleware\Role::class,
         'user_actived'  => \App\Http\Middleware\UserActived::class,
+
     ];
 }

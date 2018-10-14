@@ -92,3 +92,14 @@ Route::group(['middleware' => ['user_actived']], function() {
         Route::post('/profile/submit_edit_tim/{id}', ['as' => 'view.submit_edit_tim', 'uses' => 'Frontend\PagesController@submit_edit_tim']);
     });
 });
+
+Route::group(['prefix' => 'juri', 'namespace' => 'Frontend'], function() {
+    Route::post('login', 'JuriController@loginProcess');
+    Route::get('login', 'JuriController@login');
+
+    Route::group(['middleware' => ['role:juri']], function() {
+        Route::post('/{id}', 'JuriController@store');
+        Route::get('/{id}', 'JuriController@nilai');
+        Route::get('/', 'JuriController@index');
+    });
+});
