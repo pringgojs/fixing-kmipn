@@ -37,7 +37,6 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::get('/', 'Backend\AdminController@admin')->name('ecodeeepis.dashboard');
     Route::get('/logout', ['as' => 'logout', 'uses' => 'Auth\AdminLoginController@logout']);
 
-    //Route::get('/', array('as' => 'backend.dashboard.index', 'uses' => 'Backend\DashboardController@index'));
     Route::resource('users', 'Backend\UsersController');
     Route::resource('admin', 'Backend\AdminController');
     Route::resource('lomba', 'Backend\LombaController');
@@ -60,6 +59,7 @@ Route::group(['prefix' => 'ecodeeepis'], function() {
     Route::get('/set-lulus/{id}', 'Backend\PendaftaranController@setLolos');
     Route::get('/verifikasi/{id}', 'Backend\PendaftaranController@verifikasi');
     Route::get('/pendaftaran/{type}', 'Backend\PendaftaranController@daftar');
+    Route::get('penjurian', 'Backend\PenjurianController@index');
 });
 
 // Login Routes...

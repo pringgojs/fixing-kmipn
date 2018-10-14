@@ -168,10 +168,13 @@ class PendaftaranController extends Controller
       $tim = Tim::findOrFail($id);
       $tim->status = $status;
       $tim->save();
-
       $from = $request->input('from');
       if ($from == 'detail') {
-        return redirect(url('ecodeeepis/pendaftaran/'.$id.'/edit'));
+          return redirect(url('ecodeeepis/pendaftaran/'.$id.'/edit'));
+      }
+
+      if ($request->input('redirect')) {
+          return redirect('ecodeeepis/penjurian');
       }
       return redirect(url('ecodeeepis/pendaftaran/tahap_seleksi?politeknik=0&status=2'));
 

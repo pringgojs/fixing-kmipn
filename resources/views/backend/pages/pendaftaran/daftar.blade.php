@@ -160,7 +160,7 @@ $(document).ready(function(){
         var status =  $('#status-lulus :selected').val();
         
         if (t) {
-            location.href='{{url("/")}}/ecodeeepis/set-lulus/'+id+'&status='+status;
+            location.href='{{url("/")}}/ecodeeepis/set-lulus/'+id+'/?status='+status;
         }
     }
 </script>

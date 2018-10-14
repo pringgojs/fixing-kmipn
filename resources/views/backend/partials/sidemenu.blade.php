@@ -18,6 +18,11 @@
                         <i class="fa fa-home"></i> <span class="toggle-none">Dashboard</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('ecodeeepis/penjurian') }}">
+                        <i class="fa fa-file-o"></i> <span class="toggle-none">Penjurian</span>
+                    </a>
+                </li>
                 <li class="nav-heading"><span>Master Data</span></li>
                 <li class="nav-item">
                     <a class="nav-link" href="javascript: void(0);" aria-expanded="true"><i class="fa fa-users"></i> <span class="toggle-none">Users<span class="fa arrow"></span></span></a>
