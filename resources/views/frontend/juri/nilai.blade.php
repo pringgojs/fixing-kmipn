@@ -34,6 +34,11 @@
                                     @foreach ($list_indikator as $row => $indikator)
                                     <?php
                                     $detail = \App\PenilaianDetail::where('penilaian_id', $penilaian->id)->where('indikator_id', $indikator->id)->first();
+                                    if ($indikator->ref) {
+                                        if ($penilaian->tim->kategori_id != 2) {
+                                            continue;
+                                        }
+                                    }
                                     ?>
                                     <tr>
                                         <td>{{++$row}}</td>
