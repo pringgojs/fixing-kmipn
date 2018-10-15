@@ -88,4 +88,13 @@ class JuriController extends Controller
 
         return redirect('juri');
     }
+
+    public function logout()
+    {
+        session()->forget('juri');
+        session()->forget('username');
+        session()->forget('name');
+        session()->forget('id');
+        return redirect('juri/login');
+    }
 }

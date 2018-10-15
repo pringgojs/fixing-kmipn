@@ -27,6 +27,7 @@
                 </div>
                 <ul class="nav">
                     <li><a href="{{ url('juri') }}"> <i class="pe-7s-graph"></i><p>Dashboard</p> </a> </li>
+                    <li><a href="{{ url('juri/logout') }}"> <i class="pe-7s-lock"></i><p>Logout</p> </a> </li>
                 </ul>
             </div>
         </div>

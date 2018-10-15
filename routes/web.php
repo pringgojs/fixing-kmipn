@@ -95,6 +95,7 @@ Route::group(['middleware' => ['user_actived']], function() {
 
 Route::group(['prefix' => 'juri', 'namespace' => 'Frontend'], function() {
     Route::post('login', 'JuriController@loginProcess');
+    Route::get('logout', 'JuriController@logout');
     Route::get('login', 'JuriController@login');
 
     Route::group(['middleware' => ['role:juri']], function() {
