@@ -97,7 +97,7 @@ class JuriController extends Controller
         $tim_masuk_juri = Penilaian::select('tim_id')->where('juri_id', $juri)->get();
 
         $view = view('backend.pages.juri.random');
-        $view->list_tim = Tim::whereIn('id', $tim_masuk_juri)->get();
+        $view->list_tim = Tim::joinPenilaian()->where('penilaians.juri_id', $juri)->get();
         $view->jumlah = Tim::where('status', 'Tahap Seleksi')
             ->whereNotIn('kategori_id', [7,8])
             ->where(function($query) use ($juri) {

@@ -37,6 +37,11 @@ class Tim extends Model
         return $this->belongsTo('App\Politeknik', 'politeknik_id');
     }
 
+    public function scopeJoinPenilaian($q)
+    {
+        $q->join('penilaians', 'penilaians.tim_id', '=', $this->table.'.id');
+    }
+
     public static function jumlahAnggota($tim)
     {
         return $user = User::where('tim_id', $tim->id)->whereNull('deleted_at')->get()->count();
