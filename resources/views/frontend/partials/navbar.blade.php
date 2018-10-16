@@ -19,7 +19,6 @@
                                 <li class="nav-item"><a class="nav-link" href="#tentang">TENTANG</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#feature">LOMBA</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#price">INFORMASI</a>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">DAFTAR</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">MASUK</a></li>
                             </ul>
                         </div>
@@ -42,7 +41,6 @@
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/#tentang') }}">TENTANG</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/#feature') }}">LOMBA</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('/#price') }}">INFORMASI</a>
-                                <li class="nav-item"><a class="nav-link" href="{{ url('register') }}">DAFTAR</a></li>
                                 <li class="nav-item"><a class="nav-link" href="{{ url('login') }}">MASUK</a></li>
                             </ul>
                         </div>

@@ -76,6 +76,7 @@ class PagesController extends Controller
     }
 
     public function viewRegister(){
+      return view('frontend.pages.closed');
       $data['kategori'] = Kategori::get();
       $data['politeknik'] = Politeknik::get();
       return view('frontend.pages.register',$data);
