@@ -13,7 +13,7 @@
                     
                     <div class="col-md-12">
                         <h4 class="title">Berikan nilai untuk tim {{ucwords(strtolower($penilaian->tim->nama_tim))}} </h4><br/>
-                        File proposal : @if($penilaian->tim->file_proposal) <a href="{{ url('proposal/'.$penilaian->tim->file_proposal) }}">{{ $penilaian->tim->file_proposal }}</a>@endif <br>
+                        File proposal : @if($penilaian->tim->file_proposal) <a href="{{ asset('proposal/'.$penilaian->tim->file_proposal) }}">{{ $penilaian->tim->file_proposal }}</a>@endif <br>
                         @if(session('error'))
                         <div class="alert alert-danger" role="alert">
                             {{(session('error'))}}
