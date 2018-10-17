@@ -35,6 +35,12 @@ class JuriController extends Controller
         PenilaianDetail::where('penilaian_id', $penilaian->id)->delete();
         
         foreach ($list_indikator as $indikator) {
+            if ($indikator->ref) {
+                if ($penilaian->tim->kategori_id != 2) {
+                    continue;
+                }
+            }
+
             if (!$request->input('value_'.$indikator->id)) {
                 $request->session()->flash('error', 'Pastikan semua kriteria diisi');
                 return redirect('juri/'.$penilaian->id);
