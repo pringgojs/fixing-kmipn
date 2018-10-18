@@ -56,9 +56,7 @@
                             </table>
                         </div>
                         <p>Saran dan catatan :</p>
-                        <textarea name="saran" class="form-control" cols="30" rows="5">
-                            @if($detail) {{trim($penilaian->saran)}} @endif
-                        </textarea> <br>
+                        <textarea name="saran" class="form-control" cols="30" rows="5">@if($penilaian) {{trim($penilaian->saran)}} @endif</textarea> <br>
                         <button type="submit" class="btn btn-sm btn-primary">Simpan Nilai</button>
                     </div>
                 </div>

@@ -55,7 +55,7 @@ class JuriController extends Controller
             $total += $request->input('value_'.$indikator->id);
 
         }
-
+        
         $penilaian->saran = $request->input('saran');
         $penilaian->total = $total;
         $penilaian->save();
