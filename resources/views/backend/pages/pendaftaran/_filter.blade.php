@@ -7,12 +7,16 @@
                     <?php $fl = \Input::get('politeknik')?>
                     <?php $fl_status_approved = \Input::get('status') ? : 0?>
                     <?php $fl_status_pendaftaran = Request::segment(3)?>
-                    <div class="col-sm-3">
-                        <?php $flpoliteknik = \App\Politeknik::find($fl); ?>
-                        @if($flpoliteknik)
-                        Politeknik : <strong>{{$flpoliteknik->politeknik}} </strong><br>
-                        Jumlah Pendaftar : <strong>{{$data->count()}}</strong>
-                        @endif
+                    <?php $fl_kategori = \Input::get('kategori')?>
+                    
+                    <div class="col-sm-3 pull-right">
+                        <label for="kategori">Filter Kategory</label>
+                        <select name="" class="form-control" id="kategori" onchange="pilih()">
+                            <option value="0">Semua Kategori</option>
+                            @foreach($list_kategori as $kategori)
+                            <option value="{{$kategori->id}}" @if($fl_kategori == $kategori->id) selected @endif>{{$kategori->kategori}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-sm-3">
                         <label for="status">Status Pendaftaran</label>
@@ -39,6 +43,16 @@
                             <option value="{{$politeknik->id}}" @if($fl == $politeknik->id) selected @endif>{{$politeknik->politeknik}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <?php $flpoliteknik = \App\Politeknik::find($fl); ?>
+                        @if($flpoliteknik)
+                        Politeknik : <strong>{{$flpoliteknik->politeknik}} </strong><br>
+                        Jumlah Pendaftar : <strong>{{$data->count()}}</strong>
+                        @endif
                     </div>
                 </div>
             </div>

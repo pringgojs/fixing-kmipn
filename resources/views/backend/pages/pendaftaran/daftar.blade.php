@@ -137,8 +137,9 @@ $(document).ready(function(){
         var status =  $('#status :selected').val();
         var politeknik =  $('#politeknik :selected').val();
         var status_daftar =  $('#status-pendaftaran :selected').val();
+        var kategori =  $('#kategori :selected').val();
         var link = $('#link').val();
-        location.href='{{url("/")}}/ecodeeepis/pendaftaran/'+status_daftar+'?politeknik='+politeknik+'&status='+status;
+        location.href='{{url("/")}}/ecodeeepis/pendaftaran/'+status_daftar+'?politeknik='+politeknik+'&status='+status+'&kategori='+kategori;;
     }
 
     function verifikasi(id) {
