@@ -148,7 +148,6 @@ class JuriController extends Controller
         
         $tim = $request->input('tim_id');
         $juri_id = $request->input('juri_id');
-        // $penilaian = Penilaian::where('juri_id', $juri_id)->delete();
 
         \DB::beginTransaction();
         for ($i=0; $i<count($tim); $i++) {

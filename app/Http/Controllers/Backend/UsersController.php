@@ -19,11 +19,6 @@ class UsersController extends Controller
       return view('backend.pages.users.index', $data);
   }
 
-	//public function create()
-  //{
-  //    return view('backend.pages.users.create');
-  //}
-
   public function store(Request $request)
   {
       	$req = $request->all();

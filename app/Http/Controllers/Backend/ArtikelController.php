@@ -12,50 +12,48 @@ use File;
 
 class ArtikelController extends Controller
 {
-  public function __construct()
-  {
-       $this->middleware('auth:admin');
-  }
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
 
     public function index()
     {
-      $data['data'] = Artikel::orderBy('id', 'desc')->get();
-
-      return view('backend.pages.artikel.index', $data);
+        $data['data'] = Artikel::orderBy('id', 'desc')->get();
+        return view('backend.pages.artikel.index', $data);
     }
 
     public function create()
     {
-      return view('backend.pages.artikel.create');
+       return view('backend.pages.artikel.create');
     }
 
     public function store(Request $request)
     {
-      $req = $request->all();
-
-      if ($request->hasFile('image')) {
-        if ($request->file('image')->isValid()) {
-            $destinationPath = 'artikel/'; // upload path
-            $extension = $request->file('image')->getClientOriginalExtension(); // getting image extension
-            $fileName = rand(11111,99999).'.'.$extension; // renaming image
-            $request->file('image')->move($destinationPath, $fileName); // uploading file to given path
-            Image::make($destinationPath.$fileName)->resize(500, null, function($constraint) {
-          		$constraint->aspectRatio();
-          		$constraint->upsize();
-          	})->save($destinationPath.$fileName);
-            $req['photo'] = $fileName;
-            unset($req['image']);
+        $req = $request->all();
+        if ($request->hasFile('image')) {
+            if ($request->file('image')->isValid()) {
+                $destinationPath = 'artikel/'; // upload path
+                $extension = $request->file('image')->getClientOriginalExtension(); // getting image extension
+                $fileName = rand(11111,99999).'.'.$extension; // renaming image
+                $request->file('image')->move($destinationPath, $fileName); // uploading file to given path
+                Image::make($destinationPath.$fileName)->resize(500, null, function($constraint) {
+                  $constraint->aspectRatio();
+                  $constraint->upsize();
+                })->save($destinationPath.$fileName);
+                $req['photo'] = $fileName;
+                unset($req['image']);
+            }
         }
-      }
-      $req['slug'] = str_slug($req['title']);
+        $req['slug'] = str_slug($req['title']);
 
-      $result = Artikel::create($req);
+        $result = Artikel::create($req);
 
-      return redirect('ecodeeepis/artikel')->withInput()->with('message', array(
-        'title' => 'Yay!',
-        'type' => 'success',
-        'msg' => 'Saved Success.',
-      ));
+        return redirect('ecodeeepis/artikel')->withInput()->with('message', array(
+          'title' => 'Yay!',
+          'type' => 'success',
+          'msg' => 'Saved Success.',
+        ));
     }
 
     public function edit($id)
