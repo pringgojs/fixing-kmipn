@@ -43,5 +43,9 @@ class Penilaian extends Model
         if ($request->input('politeknik')) {
             $q->where('politeknik.id', $request->input('politeknik'));
         }
+
+        if ($request->input('juri')) {
+            $q->where('penilaians.juri_id', $request->input('juri'));
+        }
     }
 }
