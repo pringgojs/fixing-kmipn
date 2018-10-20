@@ -12,12 +12,22 @@
                 <div class="row">
                     <?php $fl_kategori = \Input::get('kategori')?>
                     <?php $fl_politeknik = \Input::get('politeknik')?>
+                    <?php $fl_juri = \Input::get('juri')?>
                     <div class="col-sm-3 pull-right">
-                        <label for="kategori">Filter</label>
+                        <label for="kategori">Filter Kategori</label>
                         <select name="" class="form-control" id="kategori" onchange="pilih()">
                             <option value="0">Semua Kategori</option>
                             @foreach($list_kategori as $kategori)
                             <option value="{{$kategori->id}}" @if($fl_kategori == $kategori->id) selected @endif>{{$kategori->kategori}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-sm-3 pull-right">
+                        <label for="juri">Filter Juri</label>
+                        <select name="" class="form-control" id="juri" onchange="pilih()">
+                            <option value="0">Semua juri</option>
+                            @foreach($list_juri as $juri)
+                            <option value="{{$juri->id}}" @if($fl_juri == $juri->id) selected @endif>{{$juri->nama}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -148,7 +158,8 @@
     function pilih() {
         var kategori =  $('#kategori :selected').val();
         var politeknik =  $('#politeknik :selected').val();
-        location.href='{{url("/")}}/ecodeeepis/penjurian/?politeknik='+politeknik+'&kategori='+kategori;
+        var juri =  $('#juri :selected').val();
+        location.href='{{url("/")}}/ecodeeepis/penjurian/?politeknik='+politeknik+'&kategori='+kategori+'&juri='+juri;;
     }
 
     function openModal(id) {

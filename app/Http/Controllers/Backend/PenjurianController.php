@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Juri;
 use App\Kategori;
 use App\Penilaian;
 use App\Politeknik;
@@ -21,6 +22,7 @@ class PenjurianController extends Controller
         $view->list_penilaian = Penilaian::joinTim()->joinKategori()->joinPoliteknik()->search($request)->orderBy('penilaians.total', 'DESC')->get();
         $view->list_kategori = Kategori::all();
         $view->list_politeknik = Politeknik::all();
+        $view->list_juri = Juri::all();
         return $view;
     }
 }
