@@ -12,14 +12,14 @@ use App\Http\Controllers\Controller;
 
 class PendaftaranController extends Controller
 {
-  public function __construct()
-  {
-       $this->middleware('auth:admin');
-  }
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
 
-  public function daftar(Request $request, $type) {
-    $ctype = $type;
-    if ($type == 'daftar') {
+    public function daftar(Request $request, $type) {
+      $ctype = $type;
+      if ($type == 'daftar') {
       $type = 'Daftar';
     } elseif ($type == 'tahap_seleksi') {
       $type = 'Tahap Seleksi';

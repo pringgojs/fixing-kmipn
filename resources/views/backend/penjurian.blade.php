@@ -62,7 +62,7 @@
                             <td>{{ ++$row}}</td>
                             <td id="tim-{{$penilaian->tim->id}}">{{ $penilaian->tim->nama_tim }}</td>
                             <td>{{ $penilaian->tim->politeknik->politeknik }}</td>
-                            <td>@if($penilaian->tim->file_proposal) <a href="{{ url('proposal/'.$penilaian->tim->file_proposal) }}">{{ $penilaian->tim->file_proposal }}</a>@endif</td>
+                            <td>@if($penilaian->tim->file_proposal) <a href="{{ asset('proposal/'.$penilaian->tim->file_proposal) }}">{{ $penilaian->tim->file_proposal }}</a>@endif</td>
                             <td>{{ $penilaian->tim->kategori->kategori }}</td>
                             <td>{{$penilaian->juri->nama}}</td>
                             <td>{{$penilaian->total}}</td>

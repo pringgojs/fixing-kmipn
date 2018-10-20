@@ -33,7 +33,7 @@
                             <td id="tim-{{$item->id}}">{{ $item->nama_tim }}</td>
                             <td>{{ $item->users->fullname }}</td>
                             <td>{{ $item->politeknik->politeknik }}</td>
-                            <td>@if($item->file_proposal) <a href="{{ url('proposal/'.$item->file_proposal) }}">{{ $item->file_proposal }}</a>@endif</td>
+                            <td>@if($item->file_proposal) <a href="{{ asset('proposal/'.$item->file_proposal) }}">{{ $item->file_proposal }}</a>@endif</td>
                             <td>{{ $item->kategori->kategori }}</td>
                             <td>
                                 <span class="badge">Status lomba : <strong>{{ $item->status }}</strong></span> <br>
@@ -137,8 +137,9 @@ $(document).ready(function(){
         var status =  $('#status :selected').val();
         var politeknik =  $('#politeknik :selected').val();
         var status_daftar =  $('#status-pendaftaran :selected').val();
+        var kategori =  $('#kategori :selected').val();
         var link = $('#link').val();
-        location.href='{{url("/")}}/ecodeeepis/pendaftaran/'+status_daftar+'?politeknik='+politeknik+'&status='+status;
+        location.href='{{url("/")}}/ecodeeepis/pendaftaran/'+status_daftar+'?politeknik='+politeknik+'&status='+status+'&kategori='+kategori;;
     }
 
     function verifikasi(id) {

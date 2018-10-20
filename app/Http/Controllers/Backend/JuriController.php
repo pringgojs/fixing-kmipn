@@ -99,7 +99,7 @@ class JuriController extends Controller
         $view = view('backend.pages.juri.random');
         $view->list_tim = Tim::joinPenilaian()->where('penilaians.juri_id', $juri)->get();
         $view->jumlah = Tim::where('status', 'Tahap Seleksi')
-            ->whereNotIn('kategori_id', [7,8])
+            // ->whereNotIn('kategori_id', [7,8])
             ->where(function($query) use ($juri) {
                 if (in_array($juri, [9,10])) {
                     $query->where('politeknik_id', '!=', 18);
@@ -118,7 +118,7 @@ class JuriController extends Controller
     {
         $tim_masuk = Penilaian::select('tim_id')->get()->toArray();
         $list_tim_tahap_seleksi = Tim::where('status', 'Tahap Seleksi')
-            ->whereNotIn('kategori_id', [7,8])
+            // ->whereNotIn('kategori_id', [7,8])
             ->where(function($query) use ($juri) {
                 if (in_array($juri, [9,10])) {
                     $query->where('politeknik_id', '!=', 18);
@@ -148,7 +148,6 @@ class JuriController extends Controller
         
         $tim = $request->input('tim_id');
         $juri_id = $request->input('juri_id');
-        $penilaian = Penilaian::where('juri_id', $juri_id)->delete();
 
         \DB::beginTransaction();
         for ($i=0; $i<count($tim); $i++) {
