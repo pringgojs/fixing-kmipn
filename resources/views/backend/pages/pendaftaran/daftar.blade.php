@@ -33,7 +33,7 @@
                             <td id="tim-{{$item->id}}">{{ $item->nama_tim }}</td>
                             <td>{{ $item->users->fullname }}</td>
                             <td>{{ $item->politeknik->politeknik }}</td>
-                            <td>@if($item->file_proposal) <a href="{{ url('proposal/'.$item->file_proposal) }}">{{ $item->file_proposal }}</a>@endif</td>
+                            <td>@if($item->file_proposal) <a href="{{ asset('proposal/'.$item->file_proposal) }}">{{ $item->file_proposal }}</a>@endif</td>
                             <td>{{ $item->kategori->kategori }}</td>
                             <td>
                                 <span class="badge">Status lomba : <strong>{{ $item->status }}</strong></span> <br>

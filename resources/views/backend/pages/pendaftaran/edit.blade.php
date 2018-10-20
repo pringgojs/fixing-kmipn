@@ -53,7 +53,7 @@
                     </tr>
                     <tr>
                         <td>File Proposal</td>
-                        <td><a href="{{ url('proposal/'.$data->file_proposal) }}">{{ $data->file_proposal }}</a></td>
+                        <td><a href="{{ asset('proposal/'.$data->file_proposal) }}">{{ $data->file_proposal }}</a></td>
                     </tr>
                 </table>
                 
