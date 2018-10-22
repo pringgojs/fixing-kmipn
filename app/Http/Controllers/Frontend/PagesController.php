@@ -323,6 +323,8 @@ class PagesController extends Controller
     }
 
     public function verifikasi(Request $request) {
+      return view('errors.closed');
+      
       $tim_anggota = Tim::where('users_id', auth()->user()->id)->first();
       $total_anggota = User::where('tim_id', $tim_anggota->id)->select('fullname')->get()->count();
       if ($total_anggota == 0) {

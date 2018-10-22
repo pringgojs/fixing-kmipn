@@ -100,7 +100,7 @@
                                 </div>
                             </div>
                             @if($tim->status_approved == 0 )
-                            <div class="col-md-6"><a onclick="verifikasi()" class="btn btn-primary pull-right">Verifikasi Data Anda</a></div>
+                            {{-- <div class="col-md-6"><a onclick="verifikasi()" class="btn btn-primary pull-right">Verifikasi Data Anda</a></div> --}}
                             @endif
                         </div>
                     </div>
