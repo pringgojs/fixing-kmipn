@@ -103,4 +103,9 @@ class JuriController extends Controller
         session()->forget('id');
         return redirect('juri/login');
     }
+
+    public function exp()
+    {
+        return view('errors.closed-juri');
+    }
 }

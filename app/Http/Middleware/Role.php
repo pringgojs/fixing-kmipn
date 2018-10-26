@@ -16,6 +16,7 @@ class Role
     public function handle($request, Closure $next, $role)
     {
         if ($role == 'juri') {
+            return redirect('exp');
             if ($role != session('juri')) return redirect('juri/login');
             return $next($request);
         }

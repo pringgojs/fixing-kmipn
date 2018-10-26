@@ -104,3 +104,4 @@ Route::group(['prefix' => 'juri', 'namespace' => 'Frontend'], function() {
         Route::get('/', 'JuriController@index');
     });
 });
+Route::get('exp', 'Frontend\JuriController@exp');
